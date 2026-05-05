@@ -1,8 +1,17 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+
+// Fail fast with a clear message if required env vars are missing
+const REQUIRED = ["MONGO_URI", "JWT_SECRET"];
+const missing = REQUIRED.filter((k) => !process.env[k]);
+if (missing.length) {
+  console.error(`Missing required env vars: ${missing.join(", ")}`);
+  console.error("Available env keys:", Object.keys(process.env).filter(k => !k.includes("npm")).join(", "));
+  process.exit(1);
+}
 
 const app = express();
 //:)
