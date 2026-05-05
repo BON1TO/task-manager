@@ -119,6 +119,51 @@
       /* Auth tabs — light theme */
       body.light-theme .auth-tab{color:var(--muted);}
       body.light-theme .auth-tab.active{background:rgba(20,159,115,.12);color:var(--g);border-bottom-color:var(--g);}
+
+      /* ── LIGHT MODE VISIBILITY FIXES ── */
+
+      /* Progress bar track & fill */
+      body.light-theme .pc-progress-bar{background:rgba(83,63,32,.1);}
+      body.light-theme .pc-progress-fill{background:linear-gradient(90deg,var(--g),var(--b));}
+      body.light-theme .pc-progress-label{color:var(--muted);}
+      body.light-theme .pc-progress-label span:last-child{color:var(--g);}
+
+      /* Role badge on project card */
+      body.light-theme .pc-role{background:rgba(83,63,32,.07);border-color:rgba(83,63,32,.18);color:var(--muted);}
+
+      /* Kanban column count badge */
+      body.light-theme .kanban-count{background:rgba(83,63,32,.08);color:var(--muted);}
+
+      /* Kanban body empty text */
+      body.light-theme .kanban-body{color:var(--muted);}
+
+      /* New project card dashed border */
+      body.light-theme .new-project-card{border-color:rgba(83,63,32,.22);color:var(--muted);}
+      body.light-theme .new-project-card:hover{border-color:var(--g);color:var(--g);background:rgba(20,159,115,.06);}
+
+      /* Sidebar active link */
+      body.light-theme .sb-link.active{background:rgba(20,159,115,.1);color:var(--g);border-color:rgba(20,159,115,.25);}
+
+      /* Modal close button */
+      body.light-theme .modal-close{border-color:rgba(83,63,32,.2);color:var(--muted);}
+      body.light-theme .modal-close:hover{background:rgba(83,63,32,.08);color:var(--text);}
+
+      /* Form input focus border */
+      body.light-theme .form-input:focus{border-color:var(--g);}
+
+      /* Task card actions */
+      body.light-theme .task-card-actions .task-action-btn{background:rgba(83,63,32,.08);color:var(--muted);}
+      body.light-theme .task-card-actions .task-action-btn:hover{background:rgba(83,63,32,.15);color:var(--text);}
+      body.light-theme .task-card-actions .task-action-btn.del:hover{background:rgba(207,74,105,.12);color:var(--r);}
+
+      /* Tab buttons */
+      body.light-theme .tab-btn.active{color:var(--g);border-bottom-color:var(--g);}
+
+      /* Stat card hover shadow */
+      body.light-theme .stat-card:hover{box-shadow:0 8px 28px rgba(83,63,32,.14);}
+
+      /* Task row dot colors already use CSS vars — fine */
+      /* Kanban col title colors use inline style vars — fine */
       *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
       html{scroll-behavior:smooth;font-size:16px;}
       body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
@@ -272,13 +317,13 @@
       .pc-progress{margin-bottom:18px;}
       .pc-progress-bar{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-top:8px;}
       .pc-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--pc-color,var(--g)),var(--b));transition:width .6s ease;}
-      .pc-progress-label{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim);}
-      .pc-progress-label span:last-child{color:var(--pc-color,var(--g));font-weight:600;}
+      .pc-progress-label{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--muted);}
+      .pc-progress-label span:last-child{color:var(--pc-color,var(--g));font-weight:700;font-size:16px;}
       .pc-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;}
       .pc-stats{display:flex;gap:20px;}
-      .pc-stat{display:flex;flex-direction:column;gap:3px;}
+      .pc-stat{display:flex;flex-direction:column;gap:4px;}
       .pc-stat-num{font-family:"Bebas Neue",sans-serif;font-size:28px;line-height:1;color:var(--text);}
-      .pc-stat-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+      .pc-stat-lbl{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
       .pc-members{display:flex;align-items:center;}
       .pc-avatar{width:26px;height:26px;border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin-left:-7px;flex-shrink:0;}
       .pc-avatar:first-child{margin-left:0;}
