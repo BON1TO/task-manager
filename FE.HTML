@@ -1814,23 +1814,23 @@
       .member-row {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 14px 0;
+        gap: 16px;
+        padding: 20px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
       .member-row:last-child {
         border-bottom: none;
       }
       .member-av {
-        width: 36px;
-        height: 36px;
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
         background: rgba(79, 158, 255, 0.12);
         border: 1px solid rgba(79, 158, 255, 0.2);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 600;
         color: var(--b);
         flex-shrink: 0;
@@ -1838,23 +1838,32 @@
       .member-info {
         flex: 1;
       }
+      .member-row .badge {
+        padding: 10px 22px !important;
+        font-size: 13px !important;
+        border-radius: 10px !important;
+      }
       .member-name {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 500;
+        margin-bottom: 3px;
       }
       .member-email {
-        font-size: 11px;
+        font-size: 13px;
         color: var(--muted);
       }
       .add-member-form {
         display: flex;
-        gap: 10px;
-        margin-top: 20px;
+        gap: 12px;
+        margin-top: 28px;
         flex-wrap: wrap;
+        align-items: center;
       }
       .add-member-form .form-input {
         flex: 1;
         min-width: 180px;
+        height: 48px;
+        font-size: 14px;
       }
 
       /* ── MODAL ── */
@@ -2270,11 +2279,6 @@
         }
         .add-member-form {
           flex-direction: column;
-          align-items: stretch;
-        }
-        .add-member-form .form-select,
-        .add-member-form .btn-p {
-          width: 100% !important;
         }
         .tabs-row {
           overflow-x: auto;
@@ -3457,12 +3461,12 @@
                 <div
                   style="
                     font-family: &quot;JetBrains Mono&quot;, monospace;
-                    font-size: 9px;
-                    letter-spacing: 0.12em;
+                    font-size: 11px;
+                    letter-spacing: 0.14em;
                     text-transform: uppercase;
                     color: var(--muted);
-                    margin-bottom: 12px;
-                    margin-top: 24px;
+                    margin-bottom: 4px;
+                    margin-top: 32px;
                   "
                 >
                   Add Member
@@ -3477,14 +3481,14 @@
                   <select
                     class="form-select"
                     id="invite-role"
-                    style="width: 120px"
+                    style="width: 130px; height: 48px; font-size: 14px; text-align: center; text-align-last: center;"
                   >
                     <option value="member">Member</option>
                     <option value="admin">Admin</option>
                   </select>
                   <button
                     class="btn-p"
-                    style="padding: 12px 20px"
+                    style="padding: 0 24px; height: 48px; font-size: 13px;"
                     onclick="addMember()"
                   >
                     Add
@@ -4653,7 +4657,7 @@
             <div class="member-email">${esc(u.email || "")}</div>
           </div>
           <span class="badge ${m.role === "admin" ? "badge-g" : "badge-dim"}">${isOwner ? "owner" : m.role}</span>
-          ${role === "admin" && !isOwner && u._id !== currentUser?.id ? `<button class="btn-g btn-danger" style="padding:6px 12px;font-size:10px" onclick="removeMember('${u._id}')">Remove</button>` : ""}
+          ${role === "admin" && !isOwner && u._id !== currentUser?.id ? `<button class="btn-g btn-danger" style="padding:10px 22px;font-size:13px;border-radius:10px" onclick="removeMember('${u._id}')">Remove</button>` : ""}
         </div>`;
           })
           .join("");
