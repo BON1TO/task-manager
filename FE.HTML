@@ -140,19 +140,22 @@
       body.light-theme .badge-dim {
         background: rgba(83, 63, 32, 0.07);
       }
-      body.light-theme .stat-card,
-      body.light-theme .recent-tasks-wrap,
-      body.light-theme .project-card,
       body.light-theme .task-card,
       body.light-theme .modal {
-        background:
-          linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.98),
-            rgba(247, 239, 225, 0.92)
-          ),
-          var(--card);
-        box-shadow: 0 10px 28px rgba(83, 63, 32, 0.08);
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(32px) saturate(150%) !important;
+        -webkit-backdrop-filter: blur(32px) saturate(150%) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04) !important;
+      }
+      body.light-theme .stat-card,
+      body.light-theme .recent-tasks-wrap,
+      body.light-theme .project-card {
+        background: rgba(255, 255, 255, 0.6) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04) !important;
       }
       body.light-theme .kanban-col {
         background: rgba(255, 255, 255, 0.18);
@@ -211,7 +214,9 @@
         border-bottom-color: rgba(83, 63, 32, 0.09);
       }
       body.light-theme .task-row:hover {
-        background: rgba(83, 63, 32, 0.05);
+        background: rgba(0, 150, 255, 0.06) !important;
+        border-left: 4px solid var(--g) !important;
+        padding-left: 20px !important;
       }
       body.light-theme .task-action-btn {
         background: rgba(83, 63, 32, 0.1);
@@ -1061,9 +1066,25 @@
       }
       .page-title {
         font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(36px, 4vw, 56px);
-        letter-spacing: 1px;
+        font-size: clamp(44px, 5vw, 64px);
+        letter-spacing: 2px;
         line-height: 1;
+        text-transform: uppercase;
+        position: relative;
+        padding-left: 24px;
+        display: inline-block;
+        color: var(--text);
+      }
+      .page-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 45%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 0.8em;
+        background: var(--g);
+        border-radius: 10px;
       }
       .page-sub {
         color: var(--muted);
@@ -1105,20 +1126,31 @@
         gap: 14px;
         margin-bottom: 32px;
       }
+      body.light-theme .filter-bar {
+        background: rgba(255, 255, 255, 0.4) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      }
       .stat-card {
-        background: var(--card-grad);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03) 0%,
+          rgba(26, 44, 78, 0.4) 40%,
+          rgba(17, 31, 56, 0.55) 100%
+        );
+        backdrop-filter: blur(20px) saturate(120%);
+        -webkit-backdrop-filter: blur(20px) saturate(120%);
+        border: 1px solid rgba(100, 145, 255, 0.15);
+        border-radius: 14px;
+        padding: 20px 22px;
         position: relative;
         overflow: hidden;
-        transition:
-          border-color 0.25s,
-          box-shadow 0.25s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .stat-card:hover {
-        border-color: var(--borderh);
-        box-shadow: 0 8px 32px rgba(30, 60, 140, 0.35);
+        border-color: rgba(46, 245, 181, 0.3);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
       }
       /* Colored bottom accent bar */
       .stat-card::after {
@@ -1224,10 +1256,18 @@
       }
 
       .recent-tasks-wrap {
-        background: var(--card-grad);
-        border: 1px solid var(--border);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02) 0%,
+          rgba(26, 44, 78, 0.35) 40%,
+          rgba(11, 22, 50, 0.45) 100%
+        );
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(100, 145, 255, 0.12);
         border-radius: 16px;
         overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       }
       .sec-head {
         padding: 20px 24px;
@@ -1257,7 +1297,10 @@
         border-bottom: none;
       }
       .task-row:hover {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(100, 150, 255, 0.1);
+        border-left: 4px solid var(--g);
+        padding-left: 20px; /* Adjust for border */
+        box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.03);
       }
       .task-dot {
         width: 10px;
@@ -1506,18 +1549,27 @@
       .project-back {
         display: flex;
         align-items: center;
-        gap: 8px;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
         color: var(--muted);
-        font-size: 13px;
         cursor: pointer;
-        border: none;
-        background: none;
-        margin-bottom: 6px;
-        padding: 4px 0;
-        transition: color 0.2s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        margin-bottom: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .project-back:hover {
         color: var(--text);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--g);
+        transform: translateX(-4px);
+        box-shadow: 0 0 15px rgba(0, 245, 160, 0.2);
+      }
+      .project-back svg {
+        width: 20px;
+        height: 20px;
       }
       .project-meta-row {
         display: flex;
@@ -1552,20 +1604,24 @@
       /* ── KANBAN ── */
       .kanban {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 32px;
         align-items: start;
+        width: 100%;
       }
       .kanban-col {
-        background: rgba(255, 255, 255, 0.008);
-        backdrop-filter: blur(4px);
+        background: rgba(255, 255, 255, 0.012);
+        backdrop-filter: blur(8px);
         border: 1px solid rgba(140, 170, 255, 0.28);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        border-radius: 14px;
+        border-radius: 16px;
         overflow: hidden;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
       }
       .kanban-col-head {
-        padding: 14px 16px;
+        padding: 20px 24px;
         border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
@@ -1573,42 +1629,53 @@
       }
       .kanban-col-title {
         font-family: "JetBrains Mono", monospace;
-        font-size: 12px;
+        font-size: 14px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        font-weight: 600;
+        font-weight: 700;
       }
       .kanban-count {
         font-family: "JetBrains Mono", monospace;
-        font-size: 11px;
-        padding: 3px 9px;
+        font-size: 12px;
+        padding: 4px 10px;
         border-radius: 100px;
         background: rgba(255, 255, 255, 0.1);
         color: var(--muted);
+        font-weight: 700;
       }
       .kanban-body {
-        padding: 12px;
-        min-height: 80px;
+        padding: 16px;
+        min-height: 100px;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
       }
       .task-card {
         background: linear-gradient(
           180deg,
-          #182a4a 0%,
-          #111f38 100%
+          rgba(255, 255, 255, 0.03) 0%,
+          rgba(26, 44, 78, 0.18) 40%,
+          rgba(17, 31, 56, 0.28) 100%
         );
-        border: 1px solid rgba(100, 145, 255, 0.3);
-        border-top: 1px solid rgba(150, 190, 255, 0.18);
+        backdrop-filter: blur(32px) saturate(120%);
+        -webkit-backdrop-filter: blur(32px) saturate(120%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
         border-radius: 14px;
-        padding: 20px 22px;
+        padding: 24px;
         cursor: pointer;
-        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        min-height: 150px;
+        justify-content: space-between;
+        overflow: hidden;
         box-shadow:
-          0 2px 8px rgba(0, 0, 0, 0.25),
-          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+          0 4px 12px rgba(0, 0, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.03);
       }
       .task-card:hover {
         border-color: rgba(46, 245, 181, 0.55);
@@ -1618,19 +1685,21 @@
           0 8px 24px rgba(0, 0, 0, 0.4),
           0 0 12px rgba(46, 245, 181, 0.12),
           inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        background: linear-gradient(
-          180deg,
-          #1d3358 0%,
-          #142542 100%
-        );
       }
       .task-card-title {
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 21px;
+        font-weight: 700;
         color: var(--text);
-        margin-bottom: 14px;
-        line-height: 1.4;
-        letter-spacing: -0.01em;
+        margin-bottom: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.015em;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .task-card-meta {
         display: flex;
@@ -1641,18 +1710,18 @@
         margin-top: 4px;
       }
       .task-card-assignee {
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 15px;
+        font-weight: 600;
         color: var(--muted);
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 9px;
       }
       .task-card-due {
         font-family: "JetBrains Mono", monospace;
-        font-size: 12px;
+        font-size: 13px;
         color: var(--dim);
-        font-weight: 500;
+        font-weight: 600;
       }
       .task-card-due.overdue {
         color: var(--r);
@@ -1689,19 +1758,20 @@
       }
       .add-task-btn {
         width: 100%;
-        padding: 10px;
-        border: 1px dashed rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
+        padding: 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
         background: transparent;
         color: var(--muted);
         font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
+        font-size: 11px;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.2s;
-        margin: 0 10px 10px;
-        width: calc(100% - 20px);
+        margin: 0 16px 20px;
+        width: calc(100% - 32px);
+        font-weight: 600;
       }
       .add-task-btn:hover {
         border-color: rgba(0, 245, 160, 0.3);
@@ -1717,18 +1787,19 @@
         margin-bottom: 24px;
       }
       .tab-btn {
-        padding: 12px 20px;
+        padding: 16px 32px;
         border: none;
         background: transparent;
         color: var(--muted);
         font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.08em;
+        font-size: 14px;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
         border-bottom: 2px solid transparent;
         transition: all 0.2s;
         margin-bottom: -1px;
+        font-weight: 700;
       }
       .tab-btn.active {
         color: var(--g);
@@ -2106,7 +2177,7 @@
           gap: 10px;
         }
         .page-title {
-          font-size: clamp(28px, 8vw, 40px);
+          font-size: clamp(32px, 8vw, 42px);
         }
         .page-body {
           padding: 16px 16px 32px;
@@ -2382,21 +2453,11 @@
       }
 
       /* Page title gradient text */
+      /* Removed duplicate page title gradients to prevent alignment issues */
       .page-title {
-        background: linear-gradient(
-          125deg,
-          var(--text) 20%,
-          rgba(190, 210, 255, 0.7) 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      body.light-theme .page-title {
-        background: linear-gradient(125deg, var(--text) 20%, var(--muted) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        background: none;
+        -webkit-text-fill-color: var(--text);
+        color: var(--text);
       }
 
       /* Sidebar active left indicator via inset shadow */
@@ -2419,7 +2480,6 @@
       .task-card[data-p="low"] {
         border-left: 3px solid var(--g);
       }
-
 
       /* Kanban column status header tints + count colors */
       .kanban-col[data-s="in-progress"] .kanban-col-head {
@@ -2453,11 +2513,8 @@
 
       /* Project detail — title gets project color accent */
       #view-project .page-title {
-        padding-left: 14px;
-        border-left: 3px solid var(--proj-color, var(--g));
-        background: none;
-        -webkit-text-fill-color: var(--text);
-        color: var(--text);
+        border-left: none;
+        padding-left: 24px;
       }
 
       /* Task row hover left accent */
@@ -2681,45 +2738,53 @@
       .filter-bar {
         display: flex;
         gap: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
+        margin-bottom: 24px;
+        flex-wrap: nowrap;
         align-items: center;
-        padding: 14px 16px;
+        padding: 15px 20px;
         background: linear-gradient(
           145deg,
-          rgba(27, 42, 74, 0.6),
-          rgba(11, 22, 50, 0.65)
+          rgba(27, 42, 74, 0.25),
+          rgba(11, 22, 50, 0.3)
         );
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
         border: 1px solid var(--border);
-        border-radius: 14px;
+        border-radius: 16px;
       }
       .filter-search {
         flex: 1;
-        min-width: 160px;
-        padding: 10px 14px;
+        min-width: 120px;
+        padding: 10px 16px;
         font-size: 13px;
+        height: 42px;
       }
       .filter-select {
         width: auto !important;
         min-width: 130px;
-        padding: 10px 14px;
+        padding: 10px 16px;
         font-size: 13px;
+        height: 42px;
+        text-align: center;
+        text-align-last: center;
       }
       .filter-clear {
-        padding: 10px 16px;
-        border-radius: 8px;
+        padding: 10px 18px;
+        border-radius: 10px;
         border: 1px solid var(--borderh);
         background: transparent;
         color: var(--muted);
         font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
+        font-size: 11px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.2s;
         white-space: nowrap;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .filter-clear:hover {
         background: rgba(255, 79, 114, 0.08);
@@ -3183,18 +3248,15 @@
         <div id="view-project" class="view hidden">
           <div class="page-header">
             <div>
-              <button class="project-back" onclick="navigate('projects')">
+              <button class="project-back" onclick="navigate('projects')" title="Back to Projects">
                 <svg
-                  width="14"
-                  height="14"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
+                  stroke-width="2.5"
                   viewBox="0 0 24 24"
                 >
                   <path d="M19 12H5M12 5l-7 7 7 7" />
                 </svg>
-                All Projects
               </button>
               <div class="page-title" id="proj-title">Project</div>
               <div class="project-meta-row" id="proj-meta-row"></div>
@@ -4412,6 +4474,8 @@
         </div>`;
           })
           .join("");
+
+        applyFilters();
       }
 
       function taskCard(t, role) {
@@ -4522,12 +4586,19 @@
           const title = (
             card.querySelector(".task-card-title")?.textContent || ""
           ).toLowerCase();
-          const match =
-            (!search || title.includes(search)) &&
-            (!priority || card.dataset.p === priority) &&
-            (!assignee || card.dataset.assignee === assignee);
-          card.style.display = match ? "block" : "none";
-          if (match) visible++;
+
+          const matchesSearch = !search || title.indexOf(search) !== -1;
+          const matchesPriority =
+            !priority || card.getAttribute("data-p") === priority;
+          const matchesAssignee =
+            !assignee || card.getAttribute("data-assignee") === assignee;
+
+          if (matchesSearch && matchesPriority && matchesAssignee) {
+            card.style.display = "block";
+            visible++;
+          } else {
+            card.style.display = "none";
+          }
         });
 
         document.querySelectorAll(".kanban-col").forEach((col) => {
