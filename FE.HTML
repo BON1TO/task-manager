@@ -894,34 +894,34 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
+        top: 0; left: 0; bottom: 0;
         z-index: 100;
         backdrop-filter: blur(20px);
       }
       .sb-logo {
-        padding: 24px 20px 20px;
+        padding: 28px 22px 22px;
         border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
       }
       .sb-logo-name {
         font-family: "Bebas Neue", sans-serif;
-        font-size: 22px;
-        letter-spacing: 3px;
+        font-size: 26px;
+        letter-spacing: 4px;
         color: var(--text);
+        line-height: 1;
       }
       .sb-logo-tag {
         font-family: "JetBrains Mono", monospace;
-        font-size: 7px;
+        font-size: 8px;
         letter-spacing: 0.14em;
         color: var(--muted);
+        margin-top: 2px;
       }
       .sb-nav {
         flex: 1;
-        padding: 20px 12px;
+        padding: 20px 14px;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -929,72 +929,73 @@
       .sb-link {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 12px;
-        border-radius: 8px;
+        gap: 12px;
+        padding: 13px 14px;
+        border-radius: 10px;
         color: var(--muted);
         text-decoration: none;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s;
-        border: none;
+        border: 1px solid transparent;
         background: transparent;
         width: 100%;
         text-align: left;
       }
       .sb-link:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255,255,255,.06);
         color: var(--text);
+        border-color: var(--border);
       }
       .sb-link.active {
-        background: rgba(0, 245, 160, 0.08);
+        background: rgba(46,245,181,.08);
         color: var(--g);
-        border: 1px solid rgba(0, 245, 160, 0.15);
+        border-color: rgba(46,245,181,.18);
       }
-      .sb-link svg {
-        flex-shrink: 0;
-        opacity: 0.7;
-      }
-      .sb-link.active svg {
-        opacity: 1;
-      }
+      .sb-link svg { flex-shrink:0; opacity:.6; }
+      .sb-link:hover svg { opacity:.9; }
+      .sb-link.active svg { opacity:1; }
       .sb-section {
         font-family: "JetBrains Mono", monospace;
-        font-size: 8px;
+        font-size: 9px;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--dim);
-        padding: 12px 12px 6px;
-        margin-top: 8px;
+        padding: 14px 14px 6px;
+        margin-top: 4px;
       }
       .sb-bottom {
-        padding: 16px 12px;
+        padding: 16px 14px;
         border-top: 1px solid var(--border);
       }
       .sb-user {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: rgba(255,255,255,.03);
+        border: 1px solid var(--border);
       }
       .sb-avatar {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        background: rgba(0, 245, 160, 0.15);
-        border: 1px solid rgba(0, 245, 160, 0.3);
+        background: rgba(46,245,181,.12);
+        border: 1.5px solid rgba(46,245,181,.35);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 15px;
+        font-weight: 700;
         color: var(--g);
         flex-shrink: 0;
       }
       .sb-user-name {
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 14px;
+        font-weight: 600;
         color: var(--text);
         white-space: nowrap;
         overflow: hidden;
@@ -1006,24 +1007,25 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        margin-top: 1px;
       }
       .sb-logout {
         width: 100%;
-        padding: 9px;
-        background: rgba(255, 255, 255, 0.04);
+        padding: 11px;
+        background: rgba(255,255,255,.04);
         border: 1px solid var(--borderh);
-        border-radius: 8px;
+        border-radius: 10px;
         color: var(--muted);
         font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
+        font-size: 10px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.2s;
       }
       .sb-logout:hover {
-        background: rgba(255, 79, 114, 0.08);
-        border-color: rgba(255, 79, 114, 0.25);
+        background: rgba(255,79,114,.08);
+        border-color: rgba(255,79,114,.3);
         color: var(--r);
       }
 
@@ -1091,18 +1093,29 @@
       .stat-card {
         background: var(--card-grad);
         border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 22px 20px;
+        border-radius: 12px;
+        padding: 16px 18px;
         position: relative;
         overflow: hidden;
-        transition:
-          border-color 0.25s,
-          box-shadow 0.25s;
+        transition: border-color 0.25s, box-shadow 0.25s;
       }
       .stat-card:hover {
         border-color: var(--borderh);
-        box-shadow: 0 8px 32px rgba(30, 60, 140, 0.35);
+        box-shadow: 0 8px 32px rgba(30,60,140,.35);
       }
+      /* Colored bottom accent bar */
+      .stat-card::after {
+        content:"";position:absolute;bottom:0;left:0;right:0;height:3px;opacity:.6;
+      }
+      .sc-g::after{background:var(--g);}
+      .sc-b::after{background:var(--b);}
+      .sc-o::after{background:var(--o);}
+      .sc-r::after{background:var(--r);}
+      /* Colored numbers */
+      .sc-g .stat-num{color:var(--g);}
+      .sc-b .stat-num{color:var(--b);}
+      .sc-o .stat-num{color:var(--o);}
+      .sc-r .stat-num{color:var(--r);}
       .stat-card::before {
         content: "";
         position: absolute;
@@ -1111,64 +1124,42 @@
         transition: opacity 0.4s;
         pointer-events: none;
       }
-      .stat-card:hover::before {
-        opacity: 1;
-      }
+      .stat-card:hover::before { opacity: 1; }
       .sc-g::before {
-        background: radial-gradient(
-          ellipse 80% 70% at 0% 0%,
-          rgba(0, 245, 160, 0.06),
-          transparent
-        );
+        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(0,245,160,.08),transparent);
       }
       .sc-b::before {
-        background: radial-gradient(
-          ellipse 80% 70% at 0% 0%,
-          rgba(79, 158, 255, 0.06),
-          transparent
-        );
+        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(79,158,255,.08),transparent);
       }
       .sc-o::before {
-        background: radial-gradient(
-          ellipse 80% 70% at 0% 0%,
-          rgba(255, 140, 66, 0.06),
-          transparent
-        );
+        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(255,140,66,.08),transparent);
       }
       .sc-r::before {
-        background: radial-gradient(
-          ellipse 80% 70% at 0% 0%,
-          rgba(255, 79, 114, 0.06),
-          transparent
-        );
+        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(255,79,114,.08),transparent);
       }
       .sc-v::before {
-        background: radial-gradient(
-          ellipse 80% 70% at 0% 0%,
-          rgba(157, 125, 255, 0.06),
-          transparent
-        );
+        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(157,125,255,.08),transparent);
       }
       .stat-num {
         font-family: "Bebas Neue", sans-serif;
-        font-size: 42px;
+        font-size: 64px;
         line-height: 1;
         letter-spacing: 1px;
       }
       .stat-lbl {
         font-family: "JetBrains Mono", monospace;
-        font-size: 8px;
-        letter-spacing: 0.12em;
+        font-size: 13px;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
-        margin-top: 4px;
+        margin-top: 6px;
       }
       .stat-icon {
         position: absolute;
-        top: 18px;
-        right: 18px;
-        opacity: 0.15;
-        font-size: 28px;
+        top: 16px;
+        right: 16px;
+        opacity: 0.28;
+        font-size: 32px;
       }
 
       .recent-tasks-wrap {
@@ -1178,7 +1169,7 @@
         overflow: hidden;
       }
       .sec-head {
-        padding: 18px 22px;
+        padding: 20px 24px;
         border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
@@ -1186,17 +1177,18 @@
       }
       .sec-head-title {
         font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.12em;
+        font-size: 13px;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--text);
+        font-weight: 500;
       }
       .task-row {
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 14px 22px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        gap: 16px;
+        padding: 18px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         transition: background 0.18s;
         cursor: pointer;
       }
@@ -1207,25 +1199,26 @@
         background: rgba(255, 255, 255, 0.04);
       }
       .task-dot {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         flex-shrink: 0;
       }
       .task-title-cell {
         flex: 1;
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 600;
         color: var(--text);
       }
       .task-proj {
-        font-size: 11px;
+        font-size: 13px;
         color: var(--muted);
-        margin-top: 2px;
+        margin-top: 3px;
+        font-weight: 400;
       }
       .task-due {
         font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
+        font-size: 12px;
         color: var(--muted);
       }
       .task-due.overdue {
@@ -2501,13 +2494,7 @@
             <div class="recent-tasks-wrap">
               <div class="sec-head">
                 <span class="sec-head-title">My Tasks</span>
-                <button
-                  class="btn-g"
-                  style="padding: 7px 14px; font-size: 10px"
-                  onclick="navigate('projects')"
-                >
-                  View Projects
-                </button>
+                <button class="btn-g" onclick="navigate('projects')">View Projects</button>
               </div>
               <div id="dash-tasks-list"></div>
             </div>
