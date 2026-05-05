@@ -523,7 +523,12 @@
     <!-- MOBILE TOPBAR -->
     <div id="mobile-topbar">
       <span class="mob-logo">TaskFlow</span>
-      <div id="mob-avatar-btn" class="mob-avatar-btn" onclick="logout()" title="Sign out">?</div>
+      <div id="mob-avatar-btn" class="mob-avatar-btn" onclick="toggleMobUser()" title="Account">?</div>
+      <div id="mob-user-popup" style="display:none;position:absolute;top:60px;right:12px;background:var(--card);border:1px solid var(--borderh);border-radius:14px;padding:16px;min-width:200px;z-index:999;box-shadow:0 12px 40px rgba(0,0,0,.4);">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;" id="mob-popup-name">—</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:14px;" id="mob-popup-email">—</div>
+        <button onclick="logout()" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,79,114,.3);background:rgba(255,79,114,.08);color:var(--r);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;">Sign Out</button>
+      </div>
     </div>
 
     <!-- SIDEBAR OVERLAY -->
@@ -1212,7 +1217,10 @@
       document.getElementById('sb-name').textContent = currentUser.name;
       document.getElementById('sb-email').textContent = currentUser.email;
       document.getElementById('sb-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
-      document.getElementById('mob-avatar-btn').textContent = currentUser.name.charAt(0).toUpperCase();
+      const mobAvatar = document.getElementById('mob-avatar-btn');
+      mobAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
+      document.getElementById('mob-popup-name').textContent = currentUser.name;
+      document.getElementById('mob-popup-email').textContent = currentUser.email;
       navigate('dashboard');
     }
 
@@ -1236,6 +1244,19 @@
       hb.classList.remove('open');
       ov.classList.remove('show');
       document.body.style.overflow = '';
+    }
+
+    function toggleMobUser() {
+      const popup = document.getElementById('mob-user-popup');
+      const open = popup.style.display === 'none' || !popup.style.display;
+      popup.style.display = open ? 'block' : 'none';
+      if (open) {
+        setTimeout(() => document.addEventListener('click', closeMobUser, { once: true }), 10);
+      }
+    }
+    function closeMobUser() {
+      const popup = document.getElementById('mob-user-popup');
+      if (popup) popup.style.display = 'none';
     }
 
     // ═══════════════════════════════════════════
