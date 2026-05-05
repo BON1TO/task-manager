@@ -1629,10 +1629,8 @@
     // ═══════════════════════════════════════════
     // BOOT
     // ═══════════════════════════════════════════
-    // Always dark by default — only honour saved preference if explicitly 'dark'
-    const savedTheme = localStorage.getItem('tf_theme');
-    applyTheme(savedTheme === 'light' ? 'light' : 'dark');
-    if (!savedTheme) localStorage.setItem('tf_theme', 'dark');
+    localStorage.setItem('tf_theme', 'dark');
+    applyTheme('dark');
     bindProjectModalTriggers();
     bootstrap();
     </script>
