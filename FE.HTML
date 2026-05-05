@@ -521,7 +521,7 @@
     <div id="toast"></div>
 
     <!-- MOBILE TOPBAR -->
-    <div id="mobile-topbar">
+    <div id="mobile-topbar" style="display:none">
       <span class="mob-logo">TaskFlow</span>
       <div id="mob-avatar-btn" class="mob-avatar-btn" onclick="toggleMobUser()" title="Account">?</div>
       <div id="mob-user-popup" style="display:none;position:absolute;top:60px;right:12px;background:var(--card);border:1px solid var(--borderh);border-radius:14px;padding:16px;min-width:200px;z-index:999;box-shadow:0 12px 40px rgba(0,0,0,.4);">
@@ -535,7 +535,7 @@
     <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <!-- BOTTOM NAV -->
-    <div id="bottom-nav">
+    <div id="bottom-nav" style="display:none">
       <button class="bnav-btn active" id="bnav-dashboard" onclick="navigate('dashboard');closeSidebar()">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span class="bnav-label">Dashboard</span>
@@ -1172,6 +1172,7 @@
       currentUser = null;
       document.getElementById('app-shell').classList.add('hidden');
       document.getElementById('auth-screen').classList.remove('hidden');
+      setMobileChrome(false);
     }
 
     // Auth tab switch
