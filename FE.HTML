@@ -737,15 +737,21 @@
       .auth-card {
         position: relative;
         z-index: 3;
-        width: min(420px, 92vw);
+        width: min(440px, 92vw);
         background: linear-gradient(
           145deg,
-          rgba(27, 42, 74, 0.92),
-          rgba(11, 22, 50, 0.92)
+          rgba(20, 34, 62, 0.6),
+          rgba(8, 16, 40, 0.65)
         );
-        border: 1px solid var(--borderh);
-        border-radius: 20px;
+        backdrop-filter: blur(48px);
+        -webkit-backdrop-filter: blur(48px);
+        border: 1px solid rgba(120, 160, 255, 0.22);
+        border-radius: 22px;
         padding: 40px;
+        box-shadow:
+          0 32px 80px rgba(0, 0, 0, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.07),
+          0 0 0 1px rgba(46, 245, 181, 0.05);
         backdrop-filter: blur(24px);
       }
       .auth-logo {
@@ -894,7 +900,9 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0; left: 0; bottom: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
         z-index: 100;
         backdrop-filter: blur(20px);
       }
@@ -944,18 +952,25 @@
         text-align: left;
       }
       .sb-link:hover {
-        background: rgba(255,255,255,.06);
+        background: rgba(255, 255, 255, 0.06);
         color: var(--text);
         border-color: var(--border);
       }
       .sb-link.active {
-        background: rgba(46,245,181,.08);
+        background: rgba(46, 245, 181, 0.08);
         color: var(--g);
-        border-color: rgba(46,245,181,.18);
+        border-color: rgba(46, 245, 181, 0.18);
       }
-      .sb-link svg { flex-shrink:0; opacity:.6; }
-      .sb-link:hover svg { opacity:.9; }
-      .sb-link.active svg { opacity:1; }
+      .sb-link svg {
+        flex-shrink: 0;
+        opacity: 0.6;
+      }
+      .sb-link:hover svg {
+        opacity: 0.9;
+      }
+      .sb-link.active svg {
+        opacity: 1;
+      }
       .sb-section {
         font-family: "JetBrains Mono", monospace;
         font-size: 9px;
@@ -976,15 +991,15 @@
         margin-bottom: 12px;
         padding: 10px 12px;
         border-radius: 10px;
-        background: rgba(255,255,255,.03);
+        background: rgba(255, 255, 255, 0.03);
         border: 1px solid var(--border);
       }
       .sb-avatar {
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: rgba(46,245,181,.12);
-        border: 1.5px solid rgba(46,245,181,.35);
+        background: rgba(46, 245, 181, 0.12);
+        border: 1.5px solid rgba(46, 245, 181, 0.35);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1012,7 +1027,7 @@
       .sb-logout {
         width: 100%;
         padding: 11px;
-        background: rgba(255,255,255,.04);
+        background: rgba(255, 255, 255, 0.04);
         border: 1px solid var(--borderh);
         border-radius: 10px;
         color: var(--muted);
@@ -1024,8 +1039,8 @@
         transition: all 0.2s;
       }
       .sb-logout:hover {
-        background: rgba(255,79,114,.08);
-        border-color: rgba(255,79,114,.3);
+        background: rgba(255, 79, 114, 0.08);
+        border-color: rgba(255, 79, 114, 0.3);
         color: var(--r);
       }
 
@@ -1097,25 +1112,49 @@
         padding: 16px 18px;
         position: relative;
         overflow: hidden;
-        transition: border-color 0.25s, box-shadow 0.25s;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s;
       }
       .stat-card:hover {
         border-color: var(--borderh);
-        box-shadow: 0 8px 32px rgba(30,60,140,.35);
+        box-shadow: 0 8px 32px rgba(30, 60, 140, 0.35);
       }
       /* Colored bottom accent bar */
       .stat-card::after {
-        content:"";position:absolute;bottom:0;left:0;right:0;height:3px;opacity:.6;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        opacity: 0.6;
       }
-      .sc-g::after{background:var(--g);}
-      .sc-b::after{background:var(--b);}
-      .sc-o::after{background:var(--o);}
-      .sc-r::after{background:var(--r);}
+      .sc-g::after {
+        background: var(--g);
+      }
+      .sc-b::after {
+        background: var(--b);
+      }
+      .sc-o::after {
+        background: var(--o);
+      }
+      .sc-r::after {
+        background: var(--r);
+      }
       /* Colored numbers */
-      .sc-g .stat-num{color:var(--g);}
-      .sc-b .stat-num{color:var(--b);}
-      .sc-o .stat-num{color:var(--o);}
-      .sc-r .stat-num{color:var(--r);}
+      .sc-g .stat-num {
+        color: var(--g);
+      }
+      .sc-b .stat-num {
+        color: var(--b);
+      }
+      .sc-o .stat-num {
+        color: var(--o);
+      }
+      .sc-r .stat-num {
+        color: var(--r);
+      }
       .stat-card::before {
         content: "";
         position: absolute;
@@ -1124,21 +1163,43 @@
         transition: opacity 0.4s;
         pointer-events: none;
       }
-      .stat-card:hover::before { opacity: 1; }
+      .stat-card:hover::before {
+        opacity: 1;
+      }
       .sc-g::before {
-        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(0,245,160,.08),transparent);
+        background: radial-gradient(
+          ellipse 80% 70% at 0% 0%,
+          rgba(0, 245, 160, 0.08),
+          transparent
+        );
       }
       .sc-b::before {
-        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(79,158,255,.08),transparent);
+        background: radial-gradient(
+          ellipse 80% 70% at 0% 0%,
+          rgba(79, 158, 255, 0.08),
+          transparent
+        );
       }
       .sc-o::before {
-        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(255,140,66,.08),transparent);
+        background: radial-gradient(
+          ellipse 80% 70% at 0% 0%,
+          rgba(255, 140, 66, 0.08),
+          transparent
+        );
       }
       .sc-r::before {
-        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(255,79,114,.08),transparent);
+        background: radial-gradient(
+          ellipse 80% 70% at 0% 0%,
+          rgba(255, 79, 114, 0.08),
+          transparent
+        );
       }
       .sc-v::before {
-        background: radial-gradient(ellipse 80% 70% at 0% 0%,rgba(157,125,255,.08),transparent);
+        background: radial-gradient(
+          ellipse 80% 70% at 0% 0%,
+          rgba(157, 125, 255, 0.08),
+          transparent
+        );
       }
       .stat-num {
         font-family: "Bebas Neue", sans-serif;
@@ -1243,7 +1304,13 @@
         gap: 18px;
       }
       .project-card {
-        background: var(--card-grad);
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(90, 130, 255, 0.12) 0%,
+          rgba(11, 22, 50, 0.95) 100%
+        );
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid var(--border);
         border-radius: 18px;
         padding: 28px 26px 22px;
@@ -1261,27 +1328,28 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 3px;
+        height: 72px;
         background: linear-gradient(
-          90deg,
+          180deg,
           var(--pc-color, var(--g)),
-          transparent 80%
+          transparent
         );
-        opacity: 0.9;
+        opacity: 0.18;
+        pointer-events: none;
       }
       .project-card::after {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        width: 80px;
-        height: 80px;
+        width: 140px;
+        height: 140px;
         background: radial-gradient(
           circle at 0% 0%,
           var(--pc-color, var(--g)),
           transparent 70%
         );
-        opacity: 0.07;
+        opacity: 0.1;
         pointer-events: none;
       }
       .project-card:hover {
@@ -1412,7 +1480,6 @@
         gap: 12px;
         color: var(--muted);
         transition: all 0.25s;
-        min-height: 200px;
       }
       .new-project-card:hover {
         border-color: var(--g);
@@ -1506,64 +1573,86 @@
       }
       .kanban-col-title {
         font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.14em;
+        font-size: 12px;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
+        font-weight: 600;
       }
       .kanban-count {
         font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        padding: 2px 7px;
+        font-size: 11px;
+        padding: 3px 9px;
         border-radius: 100px;
         background: rgba(255, 255, 255, 0.1);
         color: var(--muted);
       }
       .kanban-body {
-        padding: 10px;
+        padding: 12px;
         min-height: 80px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
       }
       .task-card {
-        background: linear-gradient(145deg, #1e2e50 0%, #111e38 100%);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 14px;
+        background: linear-gradient(
+          180deg,
+          #182a4a 0%,
+          #111f38 100%
+        );
+        border: 1px solid rgba(100, 145, 255, 0.3);
+        border-top: 1px solid rgba(150, 190, 255, 0.18);
+        border-radius: 14px;
+        padding: 20px 22px;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
       .task-card:hover {
-        border-color: var(--borderh);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 24px rgba(20, 50, 150, 0.4);
+        border-color: rgba(46, 245, 181, 0.55);
+        border-top-color: rgba(46, 245, 181, 0.35);
+        transform: translateY(-3px);
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.4),
+          0 0 12px rgba(46, 245, 181, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+          180deg,
+          #1d3358 0%,
+          #142542 100%
+        );
       }
       .task-card-title {
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 600;
         color: var(--text);
-        margin-bottom: 8px;
+        margin-bottom: 14px;
         line-height: 1.4;
+        letter-spacing: -0.01em;
       }
       .task-card-meta {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 8px;
+        gap: 10px;
         flex-wrap: wrap;
+        margin-top: 4px;
       }
       .task-card-assignee {
-        font-size: 11px;
+        font-size: 14px;
+        font-weight: 500;
         color: var(--muted);
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 8px;
       }
       .task-card-due {
         font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
+        font-size: 12px;
         color: var(--dim);
+        font-weight: 500;
       }
       .task-card-due.overdue {
         color: var(--r);
@@ -2119,6 +2208,558 @@
           padding: 24px 16px;
         }
       }
+
+      /* ══════════════════════════════════════════
+         FULL POLISH PASS
+      ══════════════════════════════════════════ */
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(90, 130, 255, 0.28);
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(90, 130, 255, 0.5);
+      }
+      ::selection {
+        background: rgba(46, 245, 181, 0.2);
+        color: var(--text);
+      }
+      body.light-theme ::selection {
+        background: rgba(20, 159, 115, 0.2);
+        color: var(--text);
+      }
+      #main-content {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(90, 130, 255, 0.25) transparent;
+      }
+
+      /* Rainbow top accent on main content (desktop) */
+      #main-content::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 240px;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          var(--g),
+          var(--b) 40%,
+          var(--v) 70%,
+          transparent
+        );
+        z-index: 5;
+        opacity: 0.38;
+        pointer-events: none;
+      }
+      @media (max-width: 900px) {
+        #main-content::before {
+          left: 200px;
+        }
+      }
+      @media (max-width: 640px) {
+        #main-content::before {
+          display: none;
+        }
+      }
+
+      /* View page enter */
+      .view:not(.hidden) {
+        animation: viewIn 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes viewIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Auth card entrance */
+      .auth-card {
+        animation: authIn 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes authIn {
+        from {
+          opacity: 0;
+          transform: translateY(24px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Modal entrance */
+      .modal {
+        animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (max-width: 640px) {
+        @keyframes modalIn {
+          from {
+            opacity: 0;
+            transform: translateY(32px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+      }
+
+      /* Kanban columns stagger in */
+      .kanban-col:nth-child(1) {
+        animation: colIn 0.42s 0s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .kanban-col:nth-child(2) {
+        animation: colIn 0.42s 0.07s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .kanban-col:nth-child(3) {
+        animation: colIn 0.42s 0.14s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      @keyframes colIn {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Stat number pop in */
+      @keyframes numPop {
+        from {
+          opacity: 0;
+          transform: scale(0.8) translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .stat-num {
+        animation: numPop 0.5s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+
+      /* Button press */
+      .btn-p:active {
+        transform: scale(0.96) !important;
+        box-shadow: none !important;
+      }
+      .btn-g:active {
+        transform: scale(0.96) !important;
+      }
+
+      /* Form focus glow */
+      .form-input:focus {
+        box-shadow: 0 0 0 3px rgba(46, 245, 181, 0.1);
+      }
+      body.light-theme .form-input:focus {
+        box-shadow: 0 0 0 3px rgba(20, 159, 115, 0.13);
+      }
+
+      /* Page title gradient text */
+      .page-title {
+        background: linear-gradient(
+          125deg,
+          var(--text) 20%,
+          rgba(190, 210, 255, 0.7) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      body.light-theme .page-title {
+        background: linear-gradient(125deg, var(--text) 20%, var(--muted) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Sidebar active left indicator via inset shadow */
+      .sb-link.active {
+        box-shadow:
+          inset 3px 0 0 var(--g),
+          0 0 18px rgba(46, 245, 181, 0.07);
+      }
+      body.light-theme .sb-link.active {
+        box-shadow: inset 3px 0 0 var(--g);
+      }
+
+      /* Task card priority left border accents */
+      .task-card[data-p="high"] {
+        border-left: 3px solid var(--r);
+      }
+      .task-card[data-p="medium"] {
+        border-left: 3px solid var(--o);
+      }
+      .task-card[data-p="low"] {
+        border-left: 3px solid var(--g);
+      }
+
+
+      /* Kanban column status header tints + count colors */
+      .kanban-col[data-s="in-progress"] .kanban-col-head {
+        background: rgba(94, 170, 255, 0.05);
+      }
+      .kanban-col[data-s="done"] .kanban-col-head {
+        background: rgba(46, 245, 181, 0.05);
+      }
+      .kanban-col[data-s="in-progress"] .kanban-col-title {
+        color: var(--b) !important;
+      }
+      .kanban-col[data-s="done"] .kanban-col-title {
+        color: var(--g) !important;
+      }
+      .kanban-col[data-s="in-progress"] .kanban-count {
+        background: rgba(94, 170, 255, 0.18);
+        color: var(--b);
+        border: 1px solid rgba(94, 170, 255, 0.25);
+      }
+      .kanban-col[data-s="done"] .kanban-count {
+        background: rgba(46, 245, 181, 0.18);
+        color: var(--g);
+        border: 1px solid rgba(46, 245, 181, 0.25);
+      }
+
+      /* Project card colored glow on hover */
+      .project-card:hover {
+        box-shadow: 0 20px 52px
+          color-mix(in srgb, var(--pc-color) 24%, rgba(6, 9, 26, 0.6));
+      }
+
+      /* Project detail — title gets project color accent */
+      #view-project .page-title {
+        padding-left: 14px;
+        border-left: 3px solid var(--proj-color, var(--g));
+        background: none;
+        -webkit-text-fill-color: var(--text);
+        color: var(--text);
+      }
+
+      /* Task row hover left accent */
+      .task-row {
+        border-left: 3px solid transparent;
+      }
+      .task-row:hover {
+        border-left-color: rgba(94, 170, 255, 0.4);
+        background: rgba(94, 170, 255, 0.025);
+      }
+
+      /* Dashboard sec head subtle gradient */
+      .sec-head {
+        background: linear-gradient(
+          90deg,
+          rgba(46, 245, 181, 0.04),
+          rgba(94, 170, 255, 0.02),
+          transparent
+        );
+      }
+
+      /* Kanban count weight */
+      .kanban-count {
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+
+      /* Badge slightly bigger */
+      .badge {
+        font-size: 12px;
+        padding: 6px 16px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        border-radius: 8px;
+      }
+
+      /* Task card title transition */
+      .task-card-title {
+        transition: color 0.18s;
+      }
+
+      /* Add task button refinement */
+      .add-task-btn {
+        font-weight: 500;
+        letter-spacing: 0.08em;
+      }
+      .add-task-btn:hover {
+        letter-spacing: 0.1em;
+      }
+
+      /* Auth tab active weight */
+      .auth-tab.active {
+        font-weight: 600;
+      }
+
+      /* Kanban empty col text — only non-card children */
+      .kanban-body > div:not(.task-card) {
+        font-style: italic;
+        opacity: 0.5;
+      }
+
+      /* date input color scheme */
+      input[type="date"] {
+        color-scheme: dark;
+      }
+      body.light-theme input[type="date"] {
+        color-scheme: light;
+      }
+
+      /* Project back button hover arrow */
+      .project-back {
+        transition:
+          gap 0.2s,
+          color 0.2s;
+      }
+      .project-back:hover {
+        gap: 12px;
+      }
+
+      /* Smooth stat card border on hover */
+      .stat-card {
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s,
+          transform 0.2s;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Both cards same height via grid stretch */
+      .projects-grid {
+        align-items: stretch;
+      }
+      .project-card {
+        height: 100%;
+      }
+
+      /* Better focus ring on buttons */
+      .btn-p:focus-visible,
+      .btn-g:focus-visible {
+        outline: 2px solid var(--g);
+        outline-offset: 3px;
+      }
+
+      /* Soft entrance for project cards */
+      .project-card {
+        animation: cardIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .project-card:nth-child(2) {
+        animation-delay: 0.06s;
+      }
+      .project-card:nth-child(3) {
+        animation-delay: 0.12s;
+      }
+      .project-card:nth-child(4) {
+        animation-delay: 0.18s;
+      }
+      .project-card:nth-child(5) {
+        animation-delay: 0.24s;
+      }
+      .project-card:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+
+      /* Light theme kanban col header */
+      body.light-theme .kanban-col[data-s="in-progress"] .kanban-col-head {
+        background: rgba(50, 109, 202, 0.06);
+      }
+      body.light-theme .kanban-col[data-s="done"] .kanban-col-head {
+        background: rgba(20, 159, 115, 0.06);
+      }
+      body.light-theme .kanban-col[data-s="in-progress"] .kanban-count {
+        background: rgba(50, 109, 202, 0.14);
+        color: var(--b);
+        border-color: rgba(50, 109, 202, 0.2);
+      }
+      body.light-theme .kanban-col[data-s="done"] .kanban-count {
+        background: rgba(20, 159, 115, 0.14);
+        color: var(--g);
+        border-color: rgba(20, 159, 115, 0.2);
+      }
+
+      /* ════════════════════════════════════════
+         VISUAL UPGRADE — KANBAN + CARDS + FILTER
+      ════════════════════════════════════════ */
+
+      /* Orbit canvas more visible through auth card */
+      #orbit-canvas {
+        opacity: 0.62 !important;
+      }
+
+      /* Kanban column color-tinted backgrounds */
+      .kanban-col[data-s="todo"] {
+        background: rgba(255, 255, 255, 0.008);
+      }
+      .kanban-col[data-s="in-progress"] {
+        background: linear-gradient(
+          160deg,
+          rgba(94, 170, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0.005) 60%
+        );
+      }
+      .kanban-col[data-s="done"] {
+        background: linear-gradient(
+          160deg,
+          rgba(46, 245, 181, 0.05) 0%,
+          rgba(255, 255, 255, 0.005) 60%
+        );
+      }
+
+      /* Task card priority colored glow */
+      .task-card[data-p="high"] {
+        border-left: 3px solid var(--r);
+        box-shadow:
+          0 2px 12px rgba(255, 96, 128, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .task-card[data-p="medium"] {
+        border-left: 3px solid var(--o);
+        box-shadow:
+          0 2px 12px rgba(255, 170, 85, 0.14),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .task-card[data-p="low"] {
+        border-left: 3px solid var(--g);
+        box-shadow:
+          0 2px 12px rgba(46, 245, 181, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .task-card[data-p="high"]:hover {
+        box-shadow:
+          0 8px 24px rgba(255, 96, 128, 0.28),
+          0 0 12px rgba(46, 245, 181, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      .task-card[data-p="medium"]:hover {
+        box-shadow:
+          0 8px 24px rgba(255, 170, 85, 0.22),
+          0 0 12px rgba(46, 245, 181, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      .task-card[data-p="low"]:hover {
+        box-shadow:
+          0 8px 24px rgba(46, 245, 181, 0.2),
+          0 0 12px rgba(46, 245, 181, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      /* ── FILTER BAR ── */
+      .filter-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 14px 16px;
+        background: linear-gradient(
+          145deg,
+          rgba(27, 42, 74, 0.6),
+          rgba(11, 22, 50, 0.65)
+        );
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+      }
+      .filter-search {
+        flex: 1;
+        min-width: 160px;
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+      .filter-select {
+        width: auto !important;
+        min-width: 130px;
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+      .filter-clear {
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--borderh);
+        background: transparent;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .filter-clear:hover {
+        background: rgba(255, 79, 114, 0.08);
+        border-color: rgba(255, 79, 114, 0.3);
+        color: var(--r);
+      }
+      .filter-badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        padding: 4px 10px;
+        border-radius: 100px;
+        background: rgba(46, 245, 181, 0.1);
+        border: 1px solid rgba(46, 245, 181, 0.22);
+        color: var(--g);
+        white-space: nowrap;
+      }
+      /* Light theme filter */
+      body.light-theme .filter-bar {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(16px);
+        border-color: rgba(83, 63, 32, 0.14);
+      }
+      body.light-theme .filter-clear {
+        border-color: rgba(83, 63, 32, 0.22);
+      }
+      body.light-theme .filter-clear:hover {
+        background: rgba(207, 74, 105, 0.08);
+        border-color: rgba(207, 74, 105, 0.25);
+        color: var(--r);
+      }
+      @media (max-width: 640px) {
+        .filter-bar {
+          gap: 8px;
+        }
+        .filter-search,
+        .filter-select {
+          font-size: 16px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -2494,7 +3135,9 @@
             <div class="recent-tasks-wrap">
               <div class="sec-head">
                 <span class="sec-head-title">My Tasks</span>
-                <button class="btn-g" onclick="navigate('projects')">View Projects</button>
+                <button class="btn-g" onclick="navigate('projects')">
+                  View Projects
+                </button>
               </div>
               <div id="dash-tasks-list"></div>
             </div>
@@ -2588,6 +3231,27 @@
 
             <!-- Tasks tab -->
             <div id="tab-tasks" class="tab-panel active">
+              <div class="filter-bar">
+                <input
+                  class="form-input filter-search"
+                  id="filter-search"
+                  type="text"
+                  placeholder="Search tasks..."
+                />
+                <select class="form-select filter-select" id="filter-priority">
+                  <option value="">All Priorities</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+                <select class="form-select filter-select" id="filter-assignee">
+                  <option value="">All Members</option>
+                </select>
+                <button class="filter-clear" onclick="clearFilters()">
+                  Clear
+                </button>
+                <span class="filter-badge hidden" id="filter-badge"></span>
+              </div>
               <div class="kanban" id="kanban-board"></div>
             </div>
 
@@ -3693,6 +4357,9 @@
 
       function renderProjectDetail({ project, tasks }) {
         document.getElementById("proj-title").textContent = project.name;
+        document
+          .getElementById("view-project")
+          .style.setProperty("--proj-color", project.color);
         const role = project.myRole;
         const roleEl = document.getElementById("proj-role-badge");
         roleEl.textContent = role;
@@ -3712,6 +4379,7 @@
 
         renderKanban(tasks, project, role);
         renderMembers(project, role);
+        initFilters(getAllMembers(project));
       }
 
       function getAllMembers(project) {
@@ -3734,12 +4402,12 @@
           .map((col) => {
             const colTasks = tasks.filter((t) => t.status === col.id);
             const cards = colTasks.map((t) => taskCard(t, role)).join("");
-            return `<div class="kanban-col">
+            return `<div class="kanban-col" data-s="${col.id}">
           <div class="kanban-col-head">
-            <span class="kanban-col-title" style="color:${col.color}">${col.label}</span>
+            <span class="kanban-col-title">${col.label}</span>
             <span class="kanban-count">${colTasks.length}</span>
           </div>
-          <div class="kanban-body" id="col-${col.id}">${cards || '<div style="padding:8px;color:var(--dim);font-size:12px;text-align:center">Empty</div>'}</div>
+          <div class="kanban-body" id="col-${col.id}">${cards || '<div style="padding:12px 8px;color:var(--dim);font-size:13px;text-align:center">No tasks yet</div>'}</div>
           <button class="add-task-btn" onclick='openTaskModal(null,"${project._id}",${JSON.stringify(getAllMembers(project))})'>+ Add Task</button>
         </div>`;
           })
@@ -3756,7 +4424,7 @@
           role === "admin" ||
           t.createdBy?._id === currentUser?.id ||
           t.assignee?._id === currentUser?.id;
-        return `<div class="task-card" onclick='openTaskModal(${JSON.stringify(t)},null,null)'>
+        return `<div class="task-card" data-p="${t.priority}" data-assignee="${t.assignee?._id || ""}" onclick='openTaskModal(${JSON.stringify(t)},null,null)'>
         <div class="task-card-actions">
           ${canEdit ? `<button class="task-action-btn" onclick='event.stopPropagation();openTaskModal(${JSON.stringify(t)},null,null)' title="Edit">✎</button>` : ""}
           ${role === "admin" || t.createdBy?._id === currentUser?.id ? `<button class="task-action-btn del" onclick="event.stopPropagation();deleteTask('${t._id}')" title="Delete">✕</button>` : ""}
@@ -3765,7 +4433,7 @@
         <div class="task-card-meta">
           <span class="badge ${priBadge(t.priority)}">${t.priority}</span>
           <span class="task-card-assignee">
-            <span style="width:16px;height:16px;border-radius:50%;background:${avatarBg(assignee)};display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#040f08;font-weight:700">${assignee.charAt(0)}</span>
+            <span style="width:22px;height:22px;border-radius:50%;background:${avatarBg(assignee)};display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#040f08;font-weight:700">${assignee.charAt(0)}</span>
             ${assignee}
           </span>
           ${dueStr ? `<span class="task-card-due${isOverdue ? " overdue" : ""}">${dueStr}</span>` : ""}
@@ -3833,6 +4501,87 @@
       // ═══════════════════════════════════════════
       let editingTaskId = null;
       let taskModalProjectId = null;
+
+      // ═══════════════════════════════════════════
+      // FILTER
+      // ═══════════════════════════════════════════
+      function applyFilters() {
+        const search = (document.getElementById("filter-search")?.value || "")
+          .toLowerCase()
+          .trim();
+        const priority =
+          document.getElementById("filter-priority")?.value || "";
+        const assignee =
+          document.getElementById("filter-assignee")?.value || "";
+        const hasFilter = search || priority || assignee;
+
+        let total = 0,
+          visible = 0;
+        document.querySelectorAll(".task-card").forEach((card) => {
+          total++;
+          const title = (
+            card.querySelector(".task-card-title")?.textContent || ""
+          ).toLowerCase();
+          const match =
+            (!search || title.includes(search)) &&
+            (!priority || card.dataset.p === priority) &&
+            (!assignee || card.dataset.assignee === assignee);
+          card.style.display = match ? "block" : "none";
+          if (match) visible++;
+        });
+
+        document.querySelectorAll(".kanban-col").forEach((col) => {
+          const n = col.querySelectorAll(
+            '.task-card:not([style*="none"])',
+          ).length;
+          const el = col.querySelector(".kanban-count");
+          if (el) el.textContent = n;
+        });
+
+        const badge = document.getElementById("filter-badge");
+        if (badge) {
+          badge.textContent = `${visible} / ${total} tasks`;
+          badge.classList.toggle("hidden", !hasFilter);
+        }
+      }
+
+      function clearFilters() {
+        ["filter-search", "filter-priority", "filter-assignee"].forEach(
+          (id) => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+          },
+        );
+        applyFilters();
+      }
+
+      function initFilters(members) {
+        const sel = document.getElementById("filter-assignee");
+        if (!sel) return;
+        sel.innerHTML =
+          '<option value="">All Members</option>' +
+          members
+            .map((m) => {
+              const u = m.user || {};
+              return `<option value="${u._id || ""}">${esc(u.name || u.email || "")}</option>`;
+            })
+            .join("");
+
+        ["filter-search", "filter-priority", "filter-assignee"].forEach(
+          (id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.value = "";
+            el.removeEventListener("input", applyFilters);
+            el.removeEventListener("change", applyFilters);
+            el.addEventListener("input", applyFilters);
+            el.addEventListener("change", applyFilters);
+          },
+        );
+
+        const badge = document.getElementById("filter-badge");
+        if (badge) badge.classList.add("hidden");
+      }
 
       function openTaskModal(task, projectId, members) {
         editingTaskId = task ? task._id : null;
