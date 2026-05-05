@@ -321,6 +321,25 @@
       .hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,245,160,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,160,.028) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 85% 75% at 50% 40%,black 5%,transparent 72%);}
       #orbit-canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(100vw,1100px);height:min(100vw,1100px);opacity:.75;pointer-events:none;}
 
+      /* ── MOBILE TOPBAR ── */
+      #mobile-topbar{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:rgba(14,18,34,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;align-items:center;justify-content:space-between;padding:0 16px;}
+      .mob-logo{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:3px;color:var(--text);}
+      .mob-menu-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--borderh);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px;}
+      .mob-menu-btn span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px;transition:all .3s;}
+      .mob-menu-btn.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+      .mob-menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+      .mob-menu-btn.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+
+      /* ── SIDEBAR OVERLAY ── */
+      #sidebar-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .3s;}
+      #sidebar-overlay.show{opacity:1;}
+
+      /* ── BOTTOM NAV ── */
+      #bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:62px;background:rgba(14,18,34,.95);border-top:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;align-items:center;justify-content:space-around;padding:0 8px;}
+      .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:10px;transition:all .2s;}
+      .bnav-btn.active{color:var(--g);}
+      .bnav-label{font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;}
+
       /* ── RESPONSIVE ── */
       @media(max-width:900px){
         #sidebar{width:200px;}
@@ -329,13 +348,73 @@
         .kanban{grid-template-columns:1fr;}
       }
       @media(max-width:640px){
-        #sidebar{display:none;}
-        #main-content{margin-left:0;}
-        .page-header,.page-body{padding-left:20px;padding-right:20px;}
-        .stat-grid{grid-template-columns:1fr 1fr;}
+        /* Show mobile chrome */
+        #mobile-topbar{display:flex;}
+        #bottom-nav{display:flex;}
+
+        /* Sidebar becomes a slide-in drawer */
+        #sidebar{
+          width:min(280px,85vw);
+          transform:translateX(-110%);
+          transition:transform .32s cubic-bezier(.4,0,.2,1);
+          top:0;z-index:300;
+        }
+        #sidebar.open{transform:translateX(0);}
+        #sidebar-overlay{display:block;}
+
+        /* Main shifts down for topbar + up for bottom nav */
+        #main-content{margin-left:0;padding-top:56px;padding-bottom:70px;}
+
+        .page-header{padding:20px 16px 0;gap:10px;}
+        .page-title{font-size:clamp(28px,8vw,40px);}
+        .page-body{padding:16px 16px 32px;}
+
+        /* Auth */
+        .auth-card{padding:28px 20px;}
+        #auth-screen{padding:16px;}
+
+        /* Stats */
+        .stat-grid{grid-template-columns:1fr 1fr;gap:10px;}
+        .stat-num{font-size:32px;}
+
+        /* Projects */
         .projects-grid{grid-template-columns:1fr;}
-        .kanban{grid-template-columns:1fr;}
-        .theme-toggle{padding:10px 12px;font-size:9px;}
+
+        /* Kanban — horizontal scroll so all 3 cols visible */
+        .kanban{
+          display:flex;
+          overflow-x:auto;
+          scroll-snap-type:x mandatory;
+          -webkit-overflow-scrolling:touch;
+          gap:12px;
+          padding-bottom:8px;
+        }
+        .kanban::-webkit-scrollbar{height:3px;}
+        .kanban::-webkit-scrollbar-thumb{background:var(--borderh);border-radius:3px;}
+        .kanban-col{
+          min-width:min(280px,80vw);
+          flex-shrink:0;
+          scroll-snap-align:start;
+        }
+
+        /* Modal — bottom sheet */
+        #modal-overlay,#proj-modal-overlay{align-items:flex-end;padding:0;}
+        .modal{border-radius:20px 20px 0 0;width:100%;max-height:88vh;}
+
+        /* Misc */
+        .page-header>div:last-child{width:100%;}
+        .page-header>div:last-child .btn-p{width:100%;justify-content:center;}
+        .add-member-form{flex-direction:column;}
+        .tabs-row{overflow-x:auto;}
+        .project-meta-row{flex-wrap:wrap;gap:8px;}
+        .member-row{flex-wrap:wrap;gap:8px;}
+        .modal-footer{flex-direction:column-reverse;}
+        .modal-footer .btn-g,.modal-footer .btn-p{width:100%;justify-content:center;}
+      }
+
+      @media(max-width:380px){
+        .stat-grid{grid-template-columns:1fr;}
+        .auth-card{padding:24px 16px;}
       }
     </style>
   </head>
@@ -360,6 +439,33 @@
 
     <!-- TOAST -->
     <div id="toast"></div>
+
+    <!-- MOBILE TOPBAR -->
+    <div id="mobile-topbar">
+      <span class="mob-logo">TaskFlow</span>
+      <button class="mob-menu-btn" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- BOTTOM NAV -->
+    <div id="bottom-nav">
+      <button class="bnav-btn active" id="bnav-dashboard" onclick="navigate('dashboard');closeSidebar()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="bnav-label">Dashboard</span>
+      </button>
+      <button class="bnav-btn" id="bnav-projects" onclick="navigate('projects');closeSidebar()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        <span class="bnav-label">Projects</span>
+      </button>
+      <button class="bnav-btn" onclick="logout()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        <span class="bnav-label">Sign Out</span>
+      </button>
+    </div>
 
     <!-- ══ AUTH SCREEN ══ -->
     <section id="auth-screen" class="hidden">
@@ -437,11 +543,11 @@
         </div>
 
         <nav class="sb-nav">
-          <button class="sb-link active" data-view="dashboard" onclick="navigate('dashboard')">
+          <button class="sb-link active" data-view="dashboard" onclick="navigate('dashboard');closeSidebar()">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             Dashboard
           </button>
-          <button class="sb-link" data-view="projects" onclick="navigate('projects')">
+          <button class="sb-link" data-view="projects" onclick="navigate('projects');closeSidebar()">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
             Projects
           </button>
@@ -765,7 +871,16 @@
         requestAnimationFrame(draw);
       }
       resize();window.addEventListener('resize',resize);
-      if(!isMob)document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+      document.addEventListener('touchstart',e=>{
+        const t=e.touches[0];mx=t.clientX;my=t.clientY;
+      },{passive:true});
+      document.addEventListener('touchmove',e=>{
+        const t=e.touches[0];mx=t.clientX;my=t.clientY;
+      },{passive:true});
+      document.addEventListener('touchend',()=>{
+        setTimeout(()=>{mx=-9999;my=-9999;},600);
+      },{passive:true});
       draw();
     })();
 
@@ -838,27 +953,19 @@
         ctx.lineWidth=1.5;ctx.setLineDash([6,12]);ctx.stroke();
         ctx.setLineDash([]);ctx.restore();
       }
-      function drawPill(x,y,col,label,icon){
+      function drawPill(x,y,col,label){
         const[r,g,b]=hexRgb(col);
-        ctx.font='700 13px JetBrains Mono,monospace';
+        ctx.font='700 12px JetBrains Mono,monospace';
         const tw=ctx.measureText(label).width;
-        const pw=tw+54,ph=34,pr=17;
+        const pw=tw+28,ph=32,pr=16;
         const px=x-pw/2,py=y-ph/2;
         const isLight = document.body.classList.contains('light-theme');
-        
         ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);
         ctx.fillStyle=isLight?'rgba(255,255,255,1)':'rgba(22,24,40,.96)';ctx.fill();
         ctx.strokeStyle=`rgba(${r},${g},${b},.8)`;ctx.lineWidth=2;ctx.stroke();
-        
-        ctx.beginPath();ctx.arc(px+20,y,10,0,Math.PI*2);
-        ctx.fillStyle=`rgba(${r},${g},${b},.18)`;ctx.fill();
-        ctx.font='12px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-        ctx.fillText(icon,px+20,y+1);
-        
         ctx.fillStyle=isLight?`rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},1)`:`rgba(${r},${g},${b},1)`;
-        ctx.textAlign='left';ctx.textBaseline='middle';
-        ctx.font='700 12px JetBrains Mono,monospace';
-        ctx.fillText(label,px+36,y+.5);
+        ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(label,x,y+.5);
       }
       function drawSpoke(pos,col){
         const[r,g,b]=hexRgb(col);
@@ -895,7 +1002,7 @@
           const r=i>=3?5:3.5,a=i>=3?.25:.35;
           ctx.beginPath();ctx.arc(p.x,p.y,r,0,Math.PI*2);ctx.fillStyle=isLight?`rgba(60,80,120,${a})`:`rgba(190,195,225,${a})`;ctx.fill();
         });
-        NODES.forEach(n=>{const pos=ellipseXY(n.rx,n.ry,n.tilt,n.offset+t*n.speed);drawPill(pos.x,pos.y,n.col,n.label,n.icon);});
+        NODES.forEach(n=>{const pos=ellipseXY(n.rx,n.ry,n.tilt,n.offset+t*n.speed);drawPill(pos.x,pos.y,n.col,n.label);});
         requestAnimationFrame(frame);
       }
       frame();
@@ -1023,6 +1130,28 @@
     }
 
     // ═══════════════════════════════════════════
+    // MOBILE SIDEBAR DRAWER
+    // ═══════════════════════════════════════════
+    function toggleSidebar() {
+      const sb = document.getElementById('sidebar');
+      const ov = document.getElementById('sidebar-overlay');
+      const hb = document.getElementById('hamburger');
+      const open = sb.classList.toggle('open');
+      hb.classList.toggle('open', open);
+      ov.classList.toggle('show', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function closeSidebar() {
+      const sb = document.getElementById('sidebar');
+      const ov = document.getElementById('sidebar-overlay');
+      const hb = document.getElementById('hamburger');
+      sb.classList.remove('open');
+      hb.classList.remove('open');
+      ov.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    // ═══════════════════════════════════════════
     // NAVIGATION
     // ═══════════════════════════════════════════
     let activeView = 'dashboard';
@@ -1034,6 +1163,10 @@
       document.querySelectorAll('.sb-link').forEach(l => {
         l.classList.toggle('active', l.dataset.view === view || (view === 'project' && l.dataset.view === 'projects'));
       });
+      // Sync bottom nav
+      document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+      const bnavMap = {dashboard:'bnav-dashboard', projects:'bnav-projects', project:'bnav-projects'};
+      if (bnavMap[view]) document.getElementById(bnavMap[view])?.classList.add('active');
       if (view === 'dashboard') loadDashboard();
       else if (view === 'projects') loadProjects();
       else if (view === 'project') loadProject(data);
