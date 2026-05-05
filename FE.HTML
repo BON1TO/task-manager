@@ -355,8 +355,8 @@
       .mob-menu-btn.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
 
       /* ── SIDEBAR OVERLAY ── */
-      #sidebar-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .3s;}
-      #sidebar-overlay.show{opacity:1;}
+      #sidebar-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;}
+      #sidebar-overlay.show{opacity:1;pointer-events:auto;}
 
       /* ── BOTTOM NAV ── */
       #bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:62px;background:rgba(14,18,34,.95);border-top:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;align-items:center;justify-content:space-around;padding:0 8px;}
@@ -1139,14 +1139,22 @@
       finishLoader();
     }
 
+    function setMobileChrome(visible) {
+      ['mobile-topbar','bottom-nav'].forEach(id => {
+        document.getElementById(id).style.display = visible ? '' : 'none';
+      });
+    }
+
     function showAuthScreen() {
       document.getElementById('auth-screen').classList.remove('hidden');
       document.getElementById('app-shell').classList.add('hidden');
+      setMobileChrome(false);
     }
 
     function initApp() {
       document.getElementById('auth-screen').classList.add('hidden');
       document.getElementById('app-shell').classList.remove('hidden');
+      setMobileChrome(true);
       document.getElementById('sb-name').textContent = currentUser.name;
       document.getElementById('sb-email').textContent = currentUser.email;
       document.getElementById('sb-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
@@ -1621,7 +1629,10 @@
     // ═══════════════════════════════════════════
     // BOOT
     // ═══════════════════════════════════════════
-    applyTheme(localStorage.getItem('tf_theme') || 'dark');
+    // Always dark by default — only honour saved preference if explicitly 'dark'
+    const savedTheme = localStorage.getItem('tf_theme');
+    applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+    if (!savedTheme) localStorage.setItem('tf_theme', 'dark');
     bindProjectModalTriggers();
     bootstrap();
     </script>
