@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1020" id="meta-theme-color" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>TaskFlow — Team Task Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -16,6 +19,7 @@
         --text: #f7f9ff; --muted: rgba(225,233,255,.74); --dim: rgba(225,233,255,.5);
         --g: #30f2b6; --g2: #15c991; --b: #69b0ff; --v: #ae93ff;
         --o: #ffab62; --r: #ff6f91; --y: #ffd166;
+        color-scheme: dark;
       }
       body.light-theme {
         --bg: #f6f3ec; --bg1: #f1ede4; --bg2: #e9e2d6;
@@ -24,6 +28,7 @@
         --text: #2f2619; --muted: rgba(47,38,25,.72); --dim: rgba(47,38,25,.46);
         --g: #149f73; --g2: #0f7f5c; --b: #326dca; --v: #7251d0;
         --o: #cb7a2f; --r: #cf4a69; --y: #b4892a;
+        color-scheme: light;
       }
       body.light-theme{
         background:
@@ -88,6 +93,23 @@
       body.light-theme .sec-head{
         background:linear-gradient(90deg,rgba(20,159,115,.08),rgba(50,109,202,.04),transparent);
       }
+      /* Mobile chrome — light theme */
+      body.light-theme #mobile-topbar{background:rgba(255,252,245,.97);border-bottom-color:rgba(78,62,40,.15);}
+      body.light-theme .mob-logo{color:var(--text);}
+      body.light-theme .mob-menu-btn{border-color:rgba(78,62,40,.2);color:var(--muted);}
+      body.light-theme #bottom-nav{background:rgba(255,252,245,.97);border-top-color:rgba(78,62,40,.15);}
+      body.light-theme .bnav-btn{color:var(--muted);}
+      body.light-theme .bnav-btn.active{color:var(--g);}
+      body.light-theme #sidebar-overlay{background:rgba(47,38,25,.3);}
+      /* Form inputs — light theme */
+      body.light-theme .form-input{background:rgba(83,63,32,.06);-webkit-text-fill-color:var(--text);}
+      body.light-theme .form-input:focus{background:rgba(83,63,32,.1);}
+      body.light-theme .form-input::placeholder{-webkit-text-fill-color:var(--dim);}
+      body.light-theme .form-select{background:rgba(83,63,32,.06);-webkit-text-fill-color:var(--text);}
+      body.light-theme textarea.form-input{-webkit-text-fill-color:var(--text);}
+      /* Auth tabs — light theme */
+      body.light-theme .auth-tab{color:var(--muted);}
+      body.light-theme .auth-tab.active{background:rgba(20,159,115,.12);color:var(--g);border-bottom-color:var(--g);}
       *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
       html{scroll-behavior:smooth;font-size:16px;}
       body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
@@ -156,10 +178,11 @@
       .auth-form.hidden{display:none;}
       .form-group{display:flex;flex-direction:column;gap:6px;}
       .form-label{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-      .form-input{background:rgba(255,255,255,.05);border:1px solid var(--borderh);border-radius:8px;padding:12px 14px;color:var(--text);font-family:"Inter",sans-serif;font-size:14px;outline:none;transition:border-color .22s;}
-      .form-input:focus{border-color:rgba(0,245,160,.45);}
-      .form-input::placeholder{color:var(--dim);}
-      .form-select{background:rgba(255,255,255,.05);border:1px solid var(--borderh);border-radius:8px;padding:12px 14px;color:var(--text);font-family:"Inter",sans-serif;font-size:14px;outline:none;cursor:pointer;}
+      .form-input{-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.07);border:1px solid var(--borderh);border-radius:8px;padding:12px 14px;color:var(--text);-webkit-text-fill-color:var(--text);font-family:"Inter",sans-serif;font-size:16px;outline:none;transition:border-color .22s;width:100%;}
+      .form-input:focus{border-color:var(--g);background:rgba(255,255,255,.1);}
+      .form-input::placeholder{color:var(--dim);-webkit-text-fill-color:var(--dim);}
+      textarea.form-input{-webkit-text-fill-color:var(--text);}
+      .form-select{-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.07);border:1px solid var(--borderh);border-radius:8px;padding:12px 14px;color:var(--text);-webkit-text-fill-color:var(--text);font-family:"Inter",sans-serif;font-size:16px;outline:none;cursor:pointer;width:100%;}
       .form-select option{background:var(--card2);color:var(--text);}
       .auth-submit{margin-top:6px;width:100%;}
       .auth-error{margin-top:12px;padding:10px 14px;background:rgba(255,79,114,.08);border:1px solid rgba(255,79,114,.25);border-radius:8px;color:var(--r);font-size:13px;display:none;}
@@ -299,7 +322,8 @@
       .modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;}
 
       /* ── TOAST ── */
-      #toast{position:fixed;bottom:28px;right:28px;z-index:9999;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;transform:translateY(16px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;}
+      #toast{position:fixed;bottom:28px;right:16px;z-index:9999;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;transform:translateY(16px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:calc(100vw - 32px);}
+      @media(max-width:640px){#toast{bottom:76px;}}
       #toast.show{transform:translateY(0);opacity:1;}
       #toast.success{background:rgba(0,245,160,.12);border:1px solid rgba(0,245,160,.35);color:var(--g);}
       #toast.error{background:rgba(255,79,114,.12);border:1px solid rgba(255,79,114,.3);color:var(--r);}
@@ -1577,6 +1601,8 @@
       document.querySelectorAll('.theme-toggle').forEach(btn => {
         btn.textContent = isLight ? 'Dark Mode' : 'Light Mode';
       });
+      const metaTheme = document.getElementById('meta-theme-color');
+      if (metaTheme) metaTheme.content = isLight ? '#f6f3ec' : '#0b1020';
     }
 
     function toggleTheme() {
