@@ -105,7 +105,7 @@
       /* Mobile chrome — light theme */
       body.light-theme #mobile-topbar{background:rgba(255,252,245,.97);border-bottom-color:rgba(78,62,40,.15);}
       body.light-theme .mob-logo{color:var(--text);}
-      body.light-theme .mob-menu-btn{border-color:rgba(78,62,40,.2);color:var(--muted);}
+      body.light-theme .mob-avatar-btn{background:rgba(20,159,115,.12);border-color:rgba(20,159,115,.35);color:var(--g);}
       body.light-theme #bottom-nav{background:rgba(255,252,245,.97);border-top-color:rgba(78,62,40,.15);}
       body.light-theme .bnav-btn{color:var(--muted);}
       body.light-theme .bnav-btn.active{color:var(--g);}
@@ -415,21 +415,19 @@
       /* ── MOBILE TOPBAR ── */
       #mobile-topbar{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:rgba(8,11,26,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;align-items:center;justify-content:space-between;padding:0 16px;}
       .mob-logo{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:3px;color:var(--text);}
-      .mob-menu-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--borderh);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px;}
-      .mob-menu-btn span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px;transition:all .3s;}
-      .mob-menu-btn.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
-      .mob-menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0);}
-      .mob-menu-btn.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+      .mob-avatar-btn{width:36px;height:36px;border-radius:50%;background:rgba(0,245,160,.15);border:1.5px solid rgba(0,245,160,.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--g);cursor:pointer;position:relative;flex-shrink:0;}
+      .mob-avatar-btn:active{transform:scale(.92);}
 
-      /* ── SIDEBAR OVERLAY ── */
+      /* ── SIDEBAR OVERLAY (desktop only) ── */
       #sidebar-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .28s;}
       #sidebar-overlay.show{opacity:1;pointer-events:auto;}
 
       /* ── BOTTOM NAV ── */
-      #bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:62px;background:rgba(8,11,26,.97);border-top:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;align-items:center;justify-content:space-around;padding:0 8px;}
-      .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:10px;transition:all .2s;}
+      #bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:64px;background:rgba(8,11,26,.97);border-top:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;align-items:center;justify-content:space-around;padding:0 4px;}
+      .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 4px;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:12px;transition:all .2s;min-height:52px;}
       .bnav-btn.active{color:var(--g);}
-      .bnav-label{font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;}
+      .bnav-btn.active svg{filter:drop-shadow(0 0 6px var(--g));}
+      .bnav-label{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;}
 
       /* ── RESPONSIVE ── */
       @media(max-width:900px){
@@ -439,22 +437,13 @@
         .kanban{grid-template-columns:1fr;}
       }
       @media(max-width:640px){
-        /* Show mobile chrome */
+        /* Show mobile chrome, hide desktop sidebar */
         #mobile-topbar{display:flex;}
         #bottom-nav{display:flex;}
+        #sidebar{display:none!important;}
 
-        /* Sidebar becomes a slide-in drawer */
-        #sidebar{
-          width:min(280px,85vw);
-          transform:translateX(-110%);
-          transition:transform .32s cubic-bezier(.4,0,.2,1);
-          top:0;z-index:300;
-        }
-        #sidebar.open{transform:translateX(0);}
-        #sidebar-overlay{display:block;}
-
-        /* Main shifts down for topbar + up for bottom nav */
-        #main-content{margin-left:0;padding-top:56px;padding-bottom:70px;}
+        /* Main fills full width */
+        #main-content{margin-left:0;padding-top:56px;padding-bottom:72px;}
 
         .page-header{padding:20px 16px 0;gap:10px;}
         .page-title{font-size:clamp(28px,8vw,40px);}
@@ -534,9 +523,7 @@
     <!-- MOBILE TOPBAR -->
     <div id="mobile-topbar">
       <span class="mob-logo">TaskFlow</span>
-      <button class="mob-menu-btn" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div id="mob-avatar-btn" class="mob-avatar-btn" onclick="logout()" title="Sign out">?</div>
     </div>
 
     <!-- SIDEBAR OVERLAY -->
@@ -1225,6 +1212,7 @@
       document.getElementById('sb-name').textContent = currentUser.name;
       document.getElementById('sb-email').textContent = currentUser.email;
       document.getElementById('sb-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
+      document.getElementById('mob-avatar-btn').textContent = currentUser.name.charAt(0).toUpperCase();
       navigate('dashboard');
     }
 
