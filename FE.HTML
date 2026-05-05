@@ -166,7 +166,7 @@
       /* Kanban col title colors use inline style vars — fine */
       *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
       html{scroll-behavior:smooth;font-size:16px;}
-      body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+      body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
       .hidden{display:none!important;}
 
       /* ── LOADER ── */
@@ -867,7 +867,9 @@
       const gl=cv.getContext('webgl');
       if(!gl){cv.style.display='none';return;}
       function resize(){cv.width=innerWidth;cv.height=innerHeight;gl.viewport(0,0,cv.width,cv.height);}
-      resize(); window.addEventListener('resize',resize);
+      let glResizeTimer;
+      resize();
+      window.addEventListener('resize',()=>{clearTimeout(glResizeTimer);glResizeTimer=setTimeout(resize,250);});
       function mkSh(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
       const vs=mkSh(gl.VERTEX_SHADER,`attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`);
       const fs=mkSh(gl.FRAGMENT_SHADER,`precision mediump float;
@@ -916,7 +918,12 @@
           ? { linePrefix:'rgba(10,10,10,', dot:'rgba(10,10,10,.62)' }
           : { linePrefix:'rgba(79,158,255,', dot:'rgba(79,158,255,.6)' };
       }
-      function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;init();}
+      let lastPW=0,pcResizeTimer;
+      function resize(){
+        const nw=innerWidth,nh=innerHeight;
+        cv.width=nw;cv.height=nh;W=nw;H=nh;
+        if(Math.abs(nw-lastPW)>60){lastPW=nw;init();}
+      }
       function init(){
         pts=Array.from({length:N},()=>({
           x:Math.random()*W,y:Math.random()*H,
@@ -953,7 +960,8 @@
         }
         requestAnimationFrame(draw);
       }
-      resize();window.addEventListener('resize',resize);
+      resize();
+      window.addEventListener('resize',()=>{clearTimeout(pcResizeTimer);pcResizeTimer=setTimeout(resize,300);});
       document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
       document.addEventListener('touchstart',e=>{
         const t=e.touches[0];mx=t.clientX;my=t.clientY;
