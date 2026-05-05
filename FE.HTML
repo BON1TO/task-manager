@@ -2926,11 +2926,27 @@
       }
       @media (max-width: 640px) {
         .filter-bar {
+          flex-wrap: wrap;
+          padding: 12px;
           gap: 8px;
         }
-        .filter-search,
-        .filter-select {
+        .filter-search {
+          flex: 1 1 100%;
+          min-width: 0;
+          padding: 10px 12px;
           font-size: 16px;
+        }
+        .filter-select {
+          flex: 1 1 calc(50% - 4px);
+          min-width: 0;
+          width: auto !important;
+          font-size: 16px;
+          padding: 10px 12px;
+        }
+        .filter-clear {
+          flex: 1 1 100%;
+          height: 40px;
+          font-size: 11px;
         }
       }
     </style>
