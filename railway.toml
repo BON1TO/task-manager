@@ -1,7 +1,8 @@
 [build]
 builder = "nixpacks"
+buildCommand = "cd backend && npm install"
 
 [deploy]
-startCommand = "node server.js"
+startCommand = "node backend/server.js"
 healthcheckPath = "/api/auth/me"
 restartPolicyType = "on_failure"
